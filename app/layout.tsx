@@ -25,9 +25,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="bg-gray-100 min-h-screen">
-        <Navbar />                  {/* ← Navbar renders on EVERY page */}
+    <html lang="en" suppressHydrationWarning>
+      <head>
+      
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            try {
+              const t = localStorage.getItem('theme');
+              if (t) document.documentElement.setAttribute('data-theme', t);
+            } catch(e) {}
+          `,
+          }}
+        />
+      </head>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen`}
+        style={{
+          background: "var(--color-bg-secondary)",
+          color: "var(--color-text-primary)",
+        }}
+      >
+        <Navbar />
         <main>{children}</main>
       </body>
     </html>

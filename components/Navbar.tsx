@@ -1,9 +1,17 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import ThemeToggle from "@/components/ThemeToggle";
+import ProfileDropdown from "@/components/ProfileDropdown";
 
 // ── Icons ────────────────────────────────────────────────────────────────────
-import { FaHome, FaUserFriends } from "react-icons/fa";
+import {
+  FaHome,
+  FaUserFriends,
+  FaBars,
+  FaFacebookMessenger,
+  FaBell,
+} from "react-icons/fa";
 import { MdOndemandVideo } from "react-icons/md";
 import { BsShop } from "react-icons/bs";
 import { HiUserGroup } from "react-icons/hi";
@@ -109,21 +117,31 @@ export default function Navbar() {
         })}
       </div>
 
-      {/* RIGHT — Menu, Messenger, Notifications, Avatar */}
+      {/* RIGHT — Menu, Messenger, Notifications, Profile */}
       <div className="flex items-center gap-2 shrink-0">
-        <IconBtn icon={<FaUserFriends />} label="Menu" />
-        <IconBtn icon={<FaUserFriends />} label="Messenger" badge={3} />
-        <IconBtn icon={<FaUserFriends />} label="Notifications" badge={5} />
-
-        {/* Profile avatar */}
-        <button
-          aria-label="Profile"
-          className="w-9 h-9 rounded-full bg-white/30 border-2 border-white/50
-                     flex items-center justify-center text-nav-text text-sm font-bold
-                     hover:bg-white/40 transition-colors shrink-0"
+        <IconBtn icon={<FaBars className="w-4 h-4" />} label="Menu" />
+        <Link
+          href="/messenger"
+          className="relative w-9 h-9 rounded-full bg-white/20 hover:bg-white/30
+                 flex items-center justify-center text-white transition-colors shrink-0"
+          aria-label="Messenger"
         >
-          A
-        </button>
+          <FaFacebookMessenger className="w-4 h-4" />
+          <span
+            className="absolute -top-0.5 -right-0.5 bg-error text-white text-[10px]
+                   font-bold rounded-full min-w-[16px] h-4 flex items-center
+                   justify-center px-1 border-2 border-primary"
+          >
+            3
+          </span>
+        </Link>
+        <IconBtn
+          icon={<FaBell className="w-4 h-4" />}
+          label="Notifications"
+          badge={5}
+        />
+        {/* ↓ replaces the old avatar button — has dropdown built in */}
+        <ProfileDropdown />
       </div>
     </nav>
   );
